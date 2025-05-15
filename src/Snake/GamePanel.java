@@ -9,5 +9,6 @@ public class GamePanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
     }
+    // all the methodes i'll we availible here
     GamePanel (){}
 }
