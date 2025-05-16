@@ -25,7 +25,28 @@ public class GamePanel extends JPanel implements ActionListener {
     public class MyKeyAdapter extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e){
-
+            switch(e.getKeyCode()) {
+                case KeyEvent.VK_LEFT:
+                    if(direction != 'R') {
+                        direction = 'L';
+                    }
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    if(direction != 'L') {
+                        direction = 'R';
+                    }
+                    break;
+                case KeyEvent.VK_UP:
+                    if(direction != 'D') {
+                        direction = 'U';
+                    }
+                    break;
+                case KeyEvent.VK_DOWN:
+                    if(direction != 'U') {
+                        direction = 'D';
+                    }
+                    break;
+            }
         }
     }
     GamePanel (){
@@ -47,20 +68,24 @@ public class GamePanel extends JPanel implements ActionListener {
         draw(g);
     }
     public void draw (Graphics g){
-        g.setColor(Color.WHITE);
-        g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
-        for (int i = 0; i < bodyParts; i++){
-            if (i ==0){
-                g.setColor(Color.green);
-                g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
-            }
-            else {
-                g.setColor(new Color(45, 180, 0));
-                g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE); // corps
+        if (running){
+            g.setColor(Color.WHITE);
+            g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
+            for (int i = 0; i < bodyParts; i++){
+                if (i ==0){
+                    g.setColor(Color.green);
+                    g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
+                }
+                else {
+                    g.setColor(new Color(45, 180, 0));
+                    g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE); // corps
+                }
             }
         }
 
-
+        else {
+            gameOver(g);
+        }
     }
     public void checkCollisions() {
         // Checks if head collides with body
@@ -122,7 +147,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
         // Score
         g.setColor(Color.MAGENTA); // Texte rouge
-        g.setFont(new Font("Ink Free", Font.BOLD, 70)); // Police utilisée pour le score
+        g.setFont(new Font("Ink Free", Font.BOLD, 80)); // Police utilisée pour le score
         FontMetrics metrics1 = getFontMetrics(g.getFont()); // Sert à mesurer la largeur du texte
         g.drawString("Score: " + applesEaten,
                 (WIDTH - metrics1.stringWidth("Score: " + applesEaten)) / 2,
@@ -142,7 +167,12 @@ public class GamePanel extends JPanel implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if (running) {
+            move();
+            checkApple();
+            checkCollisions();
+        }
+        repaint();
     }
 
     // all the methodes i'll we availible here
