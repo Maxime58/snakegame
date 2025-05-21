@@ -21,6 +21,8 @@ public class GamePanel extends JPanel implements ActionListener {
     boolean running = false;
     Timer timer;
     Random random;
+    private boolean menuShown = false;
+    private boolean endDialogShown = false;
 
     public class MyKeyAdapter extends KeyAdapter {
         @Override
@@ -58,7 +60,7 @@ public class GamePanel extends JPanel implements ActionListener {
         startGame();
     }
     public void startGame(){
-        newApple();               // génère une première pomme aléatoire
+        newApple();               // generate an apple randomnly
         running = true;           // on indique que le jeu est en cours
         timer = new Timer(DELAY, this); // crée un timer qui appelle actionPerformed() à chaque "tick"
         timer.start();
@@ -114,6 +116,13 @@ public class GamePanel extends JPanel implements ActionListener {
         if (!running) {
             timer.stop();
         }
+        if (!running) {
+            timer.stop();
+            if (!endDialogShown) {
+                endDialogShown = true;
+                SwingUtilities.invokeLater(() -> showEndDialog());
+            }
+        }
     }
 
     public void move (){
@@ -160,6 +169,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 (WIDTH - metrics2.stringWidth("Game Over")) / 2,
                 HEIGHT / 2);
 
+
     }
     public void newApple() {
         appleX = random.nextInt((int)(WIDTH / UNIT_SIZE)) * UNIT_SIZE;
@@ -174,6 +184,29 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         repaint();
     }
+    private void showEndDialog() {
+        int choice = JOptionPane.showOptionDialog(
+                this,
+                "do you want replay  ?",
+                "end of game ",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                new Object[]{"Replay "},
+                "Replay"
+        );
+
+        if (choice == JOptionPane.YES_OPTION) {
+            // Rejouer : fermer la fenêtre actuelle et relancer le jeu
+            JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            topFrame.dispose();
+            new GameFrame();
+        } else if (choice == JOptionPane.NO_OPTION) {
+            // Retour au menu : fermer la fenêtre actuelle et afficher le menu
+            JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            topFrame.dispose();
+            new GameMenu();
+        }}
 
     // all the methodes i'll we availible here
 

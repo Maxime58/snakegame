@@ -1,9 +1,9 @@
-package Snake;
+package tictactoe;
 
 import java.awt.*;
 import javax.swing.*;
 
-class TicTacToe {
+public class TicTacToe {
     private static char huidigeSpeler;
     private static Color kleurSpeler1;
     private static Color kleurSpeler2;

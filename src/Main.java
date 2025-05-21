@@ -1,15 +1,18 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import Snake.GameFrame;
+import Snake.GameMenu;
+import darksouls_game.DarkSoulsWindow;
+import guessingGameGUI.GuessingGameGUI;
+import tictactoe.TicTacToe;
+//import tictactoe.TicTacToe;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        GameMenu menu = new GameMenu();
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        menu.addGame("🐍 Snake", () -> new GameFrame());
+        menu.addGame("🟡 Tic Tac Toe", () -> TicTacToe.main(new String[0]));
+        menu.addGame("🟦 DarkSoul", () -> DarkSoulsWindow.main(new String[0]));
+        menu.addGame("🟦 GuessingGame", () -> GuessingGameGUI.main(new String[0]));
+
     }
 }
