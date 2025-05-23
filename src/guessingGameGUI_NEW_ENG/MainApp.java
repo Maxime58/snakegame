@@ -1,0 +1,8 @@
+package guessingGameGUI_NEW_ENG;
+import javax.swing.*;
+
+public class MainApp {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(GuessingGameGUI::new); // Start de GUI
+    }
+}
