@@ -1,4 +1,4 @@
-package guessingGameGUI_NEW_ENG;
+package guessingGameGUI;
 
 public abstract class AbstractGuessingGame implements Guessable {
     protected boolean guessed = false;

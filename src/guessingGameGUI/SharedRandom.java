@@ -1,4 +1,4 @@
-package guessingGameGUI_NEW_ENG;
+package guessingGameGUI;
 
 import java.util.Random;
 

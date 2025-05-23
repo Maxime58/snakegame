@@ -1,4 +1,4 @@
-package guessingGameGUI_NEW_ENG;
+package guessingGameGUI;
 
 public class NumberGuess extends AbstractGuessingGame {
     private int secretNumber;
