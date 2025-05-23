@@ -14,18 +14,19 @@ public class BattlePanel extends JPanel {
     private JTextArea logArea = new JTextArea();
 
     public BattlePanel(){
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); //placement of components in a column
-        //imgs for box
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); //placement of components in a column y; img, health, log, buttons
+
         ImageIcon icon = new ImageIcon("img/fight.png");
         Image scaled = icon.getImage().getScaledInstance(400, 300, Image.SCALE_SMOOTH);
         imageBattle.setIcon(new ImageIcon(scaled));
         add(imageBattle);
 
-        JPanel statusPanel = new JPanel(new GridLayout(1, 2)); // health "icon"
+        JPanel statusPanel = new JPanel(new GridLayout(1, 2)); // health "icon" left and right
         statusPanel.add(playerHpLabel);
         statusPanel.add(bossHpLabel);
         add(statusPanel);
 
+        //JTextArea and player cant change it
         logArea.setEditable(false);
         add(new JScrollPane(logArea));
 

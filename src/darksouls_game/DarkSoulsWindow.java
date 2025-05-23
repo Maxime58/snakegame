@@ -6,7 +6,7 @@ import java.awt.*;
 public class DarkSoulsWindow extends JFrame {
     private final CardLayout cardLayout = new CardLayout(); //smooth transition
     private final JPanel mainPanel = new JPanel(cardLayout); // first intro dan battle
-    private final BattleManager battle;
+    private final BattleManager battle; //hang af van andere objecten
     private final IntroPanel introPanel = new IntroPanel();
     private final BattlePanel battlePanel = new BattlePanel();
 
@@ -20,7 +20,7 @@ public class DarkSoulsWindow extends JFrame {
         battlePanel.getEstusButton().addActionListener(e -> handleAction("heal"));
         battlePanel.getDodgeButton().addActionListener(e -> handleAction("dodge"));
         battlePanel.getRetryButton().addActionListener(e -> {
-            dispose();
+            dispose(); //restart game end close old window
             new DarkSoulsWindow();
         });
         //Screen, icon, exit
@@ -66,7 +66,7 @@ public class DarkSoulsWindow extends JFrame {
     }
 
     public void handleAction(String action) {
-        if (battle.isGameOver()) return;
+        if (battle.isGameOver()) return; //nothing do if game finish
 
         switch (action) {
             case "attack" -> battlePanel.log(battle.playerAttack());
@@ -75,10 +75,10 @@ public class DarkSoulsWindow extends JFrame {
         }
 
         if (!battle.isGameOver()) {
-            battlePanel.log(battle.bossTurn());
+            battlePanel.log(battle.bossTurn()); //attack of boss if knight is alive
         }
 
-        battlePanel.updateStatus(battle.getPlayerHp(), battle.getBossHp());
+        battlePanel.updateStatus(battle.getPlayerHp(), battle.getBossHp()); //update hp
 
         if (battle.isGameOver()) {
             if (battle.playerWon()) {
@@ -96,8 +96,8 @@ public class DarkSoulsWindow extends JFrame {
     }
 
     private void startBattleUI() {
-        cardLayout.show(mainPanel, "battle");
-        battlePanel.updateStatus(battle.getPlayerHp(), battle.getBossHp());
+        cardLayout.show(mainPanel, "battle"); //after intro to battle
+        battlePanel.updateStatus(battle.getPlayerHp(), battle.getBossHp()); //update hp
         battlePanel.log("Hint: knight has 3 estus (heal). " +
                 "You can use a shield to protect yourself! " +
                 "\nRules: this is a turn based battle! After your choice the boss will attack you immediately!" +
